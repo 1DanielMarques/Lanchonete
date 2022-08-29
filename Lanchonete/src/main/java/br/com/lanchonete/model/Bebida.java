@@ -9,7 +9,7 @@ public class Bebida {
     private double preco_venda;
 
     public Bebida() {
-        
+
     }
 
     public Bebida(int id, String marca, String litro, double preco_custo, double preco_venda) {
@@ -18,6 +18,14 @@ public class Bebida {
         this.litro = litro;
         this.preco_custo = preco_custo;
         this.preco_venda = preco_venda;
+    }
+
+    public void dados(Bebida bebida) {
+        System.out.println("[ID]          | " + bebida.getId());
+        System.out.println("[MARCA]       | " + bebida.getMarca());
+        System.out.println("[LITRAGEM]    | " + bebida.getLitro());
+        System.out.println("[VALOR CUSTO] | " + bebida.getPreco_custo());
+        System.out.println("[VALOR VENDA] | " + bebida.getPreco_venda());
     }
 
     public int getId() {

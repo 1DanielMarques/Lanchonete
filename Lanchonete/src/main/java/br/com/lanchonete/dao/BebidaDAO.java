@@ -1,30 +1,31 @@
 package br.com.lanchonete.dao;
 
 import br.com.lanchonete.factory.ConnectionFactory;
-import br.com.lanchonete.model.Lanche;
+import br.com.lanchonete.model.Bebida;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LancheDAO {
-    public void create(Lanche lanche) {
-        String sql = " INSERT INTO lanche (nome,valor_custo,valor_venda,descricao)  VALUES(?,?,?,?) ";
+public class BebidaDAO {
+
+    public void create(Bebida bebida) {
+        String sql = " INSERT INTO bebida (marca,litro,preco_custo,preco_venda) " +
+                " VALUES (?,?,?,?)";
         Connection conn = null;
         PreparedStatement pstm = null;
+
         try {
-            //Criando a conexao
             conn = ConnectionFactory.createConnection();
             pstm = conn.prepareStatement(sql);
-            pstm.setString(1, lanche.getNome());
-            pstm.setDouble(2, lanche.getValor_custo());
-            pstm.setDouble(3, lanche.getValor_venda());
-            pstm.setString(4, lanche.getDescricao());
+            pstm.setString(1, bebida.getMarca());
+            pstm.setString(2, bebida.getLitro());
+            pstm.setDouble(3, bebida.getPreco_custo());
+            pstm.setDouble(4, bebida.getPreco_venda());
             pstm.execute();
-            System.out.println("--SALVO COM SUCESSO---");
+            System.out.println("--SALVO COM SUCESSO--");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -41,9 +42,9 @@ public class LancheDAO {
         }
     }
 
-    public List<Lanche> read() {
-        List<Lanche> lanches = new ArrayList<Lanche>();
-        String sql = "SELECT * FROM lanche";
+    public List<Bebida> read() {
+        List<Bebida> bebidas = new ArrayList<Bebida>();
+        String sql = "SELECT * FROM bebida";
         Connection conn = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -52,14 +53,14 @@ public class LancheDAO {
             pstm = conn.prepareStatement(sql);
             rs = pstm.executeQuery();
             while (rs.next()) {
-                Lanche lanche = new Lanche();
+                Bebida bebida = new Bebida();
 
-                lanche.setId(rs.getInt("id"));
-                lanche.setNome(rs.getString("nome"));
-                lanche.setValor_custo(rs.getDouble("valor_custo"));
-                lanche.setValor_venda(rs.getDouble("valor_venda"));
-                lanche.setDescricao(rs.getString("descricao"));
-                lanches.add(lanche);
+                bebida.setId(rs.getInt("id"));
+                bebida.setMarca(rs.getString("marca"));
+                bebida.setLitro(rs.getString("litro"));
+                bebida.setPreco_custo(rs.getDouble("preco_custo"));
+                bebida.setPreco_venda(rs.getDouble("preco_venda"));
+                bebidas.add(bebida);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,33 +69,34 @@ public class LancheDAO {
                 if (rs != null) {
                     rs.close();
                 }
-                if (pstm != null) {
-                    pstm.close();
-                }
                 if (conn != null) {
                     conn.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
-        return lanches;
+        return bebidas;
     }
 
-    public void update(Lanche lanche) {
-        String sql = "UPDATE lanche SET nome = ?, valor_custo = ?, valor_venda = ?,descricao = ? WHERE id = ?";
-        // Perguntar usuario qual ele quer alterar, ou se quer alterar todos
+    public void update(Bebida bebida) {
+        String sql = "UPDATE bebida SET marca = ?, litro = ?, preco_custo = ?, preco_venda = ? WHERE id = ?";
         Connection conn = null;
         PreparedStatement pstm = null;
+
         try {
             conn = ConnectionFactory.createConnection();
             pstm = conn.prepareStatement(sql);
-            pstm.setString(1, lanche.getNome());
-            pstm.setDouble(2, lanche.getValor_custo());
-            pstm.setDouble(3, lanche.getValor_venda());
-            pstm.setString(4, lanche.getDescricao());
-            pstm.setInt(5, lanche.getId());
+            pstm.setString(1, bebida.getMarca());
+            pstm.setString(2, bebida.getLitro());
+            pstm.setDouble(3, bebida.getPreco_custo());
+            pstm.setDouble(4, bebida.getPreco_venda());
+            pstm.setInt(5, bebida.getId());
             pstm.execute();
+            System.out.println("--ALTERADO COM SUCESSO--");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -105,14 +107,15 @@ public class LancheDAO {
                 if (pstm != null) {
                     pstm.close();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
+
     }
 
-    public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM lanche WHERE id = ?";
+    public void delete(int id) {
+        String sql = "DELETE FROM bebida WHERE id = ?";
         Connection conn = null;
         PreparedStatement pstm = null;
         try {
@@ -121,6 +124,7 @@ public class LancheDAO {
             pstm.setInt(1, id);
             pstm.execute();
             System.out.println("--DELETADO COM SUCESSO--");
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
