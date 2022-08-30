@@ -3,6 +3,7 @@ package br.com.lanchonete.aplicacao;
  * @author Daniel Marques
  */
 
+import br.com.lanchonete.auxiliar.LancheAUX;
 import br.com.lanchonete.dao.BebidaDAO;
 import br.com.lanchonete.dao.LancheDAO;
 import br.com.lanchonete.model.Bebida;
@@ -24,88 +25,27 @@ public class Main {
             opcao = sc.nextInt();
             switch (opcao) {
                 case 1:
-                    String nome, descricao, aux, resposta = "";
-                    double valor_custo, valor_venda;
-                    int id = 0;
-
-                    Lanche lanche = new Lanche();
-                    LancheDAO lancheDAO = new LancheDAO();
-                    Lanche lancheId = new Lanche();
                     do {
                         opcao = 0;
-
                         System.out.println("1 - Registrar Lanche");
                         System.out.println("2 - Mostrar Lanches");
                         System.out.println("3 - Alterar Lanche");
                         System.out.println("4 - Deletar Lanche");
                         System.out.println("9 - Finalizar");
                         opcao = sc.nextInt();
+
                         switch (opcao) {
                             case 1:
-                                System.out.println("----REGISTRAR----");
-                                System.out.print("[NOME]        | ");
-                                aux = sc.nextLine();
-                                nome = sc.nextLine();
-                                System.out.print("[VALOR CUSTO] | ");
-                                valor_custo = sc.nextDouble();
-                                System.out.print("[VALOR VENDA] | ");
-                                valor_venda = sc.nextDouble();
-                                System.out.print("[DESCRICAO]   | ");
-                                aux = sc.nextLine();
-                                descricao = sc.nextLine();
-                                lanche.setNome(nome);
-                                lanche.setValor_custo(valor_custo);
-                                lanche.setValor_venda(valor_venda);
-                                lanche.setDescricao(descricao);
-                                lancheDAO.create(lanche);
+                                LancheAUX.registra();
                                 break;
                             case 2:
-                                System.out.println("--------LANCHES--------");
-                                for (Lanche l : lancheDAO.read()) {
-                                    l.dados(l);
-                                    System.out.println("-----------------------");
-                                }
+                                LancheAUX.mostra();
                                 break;
                             case 3:
-                                System.out.println("-----ATUALIZAR-----");
-                                System.out.print("[ID]          | ");
-                                id = sc.nextInt();
-                                System.out.print("[NOME]        | ");
-                                aux = sc.nextLine();
-                                nome = sc.nextLine();
-                                System.out.print("[VALOR CUSTO] | ");
-                                valor_custo = sc.nextDouble();
-                                System.out.print("[VALOR VENDA] | ");
-                                valor_venda = sc.nextDouble();
-                                System.out.print("[DESCRICAO]   | ");
-                                aux = sc.nextLine();
-                                descricao = sc.nextLine();
-                                lanche.setId(id);
-                                lanche.setNome(nome);
-                                lanche.setValor_custo(valor_custo);
-                                lanche.setValor_venda(valor_venda);
-                                lanche.setDescricao(descricao);
-                                lancheDAO.update(lanche);
+                                LancheAUX.atualiza();
                                 break;
                             case 4:
-                                System.out.println("-----DELETAR-----");
-                                System.out.print("Informe o ID: ");
-                                id = sc.nextInt();
-                                for (Lanche lId : lancheDAO.read()) {
-                                    if (lId.getId() == id) {
-                                        lancheId = lId;
-                                        break;
-                                    }
-                                }
-                                System.out.println("-------LANCHE-------");
-                                lancheId.dados(lancheId);
-                                System.out.println("--------------------");
-                                System.out.println("Deseja excluir esse LANCHE? S/N");
-                                resposta = sc.next();
-                                resposta.toLowerCase();
-                                if (resposta.equals("s")) {
-                                    lancheDAO.delete(id);
-                                }
+                                LancheAUX.deleta();
                                 break;
                         }
                     } while (opcao != 9);

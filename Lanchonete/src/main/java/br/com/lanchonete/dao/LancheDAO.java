@@ -95,6 +95,7 @@ public class LancheDAO {
             pstm.setString(4, lanche.getDescricao());
             pstm.setInt(5, lanche.getId());
             pstm.execute();
+            System.out.println("--ATUALIZADO COM SUCESSO--");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
