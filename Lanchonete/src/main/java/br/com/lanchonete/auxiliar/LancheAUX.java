@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class LancheAUX {
-    static Lanche lanche = new Lanche();
-    static LancheDAO lancheDAO = new LancheDAO();
-    static Scanner sc = new Scanner(System.in);
-    static int id = 0;
-    static String nome, descricao, resposta = "";
-    static double valor_custo, valor_venda;
+    private static Lanche lanche = new Lanche();
+    private static LancheDAO lancheDAO = new LancheDAO();
+    private static Scanner sc = new Scanner(System.in);
+    private static int id = 0;
+    private static String nome, descricao, resposta = "";
+    private static double valor_custo, valor_venda;
 
     public static void registra() {
         System.out.println("----REGISTRAR----");

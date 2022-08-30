@@ -24,8 +24,8 @@ public class Bebida {
         System.out.println("[ID]          | " + bebida.getId());
         System.out.println("[MARCA]       | " + bebida.getMarca());
         System.out.println("[LITRAGEM]    | " + bebida.getLitro());
-        System.out.println("[VALOR CUSTO] | " + bebida.getPreco_custo());
-        System.out.println("[VALOR VENDA] | " + bebida.getPreco_venda());
+        System.out.println("[VALOR CUSTO] | R$" + String.format("%.2f", bebida.getPreco_custo()));
+        System.out.println("[VALOR VENDA] | R$" + String.format("%.2f", bebida.getPreco_venda()));
     }
 
     public int getId() {

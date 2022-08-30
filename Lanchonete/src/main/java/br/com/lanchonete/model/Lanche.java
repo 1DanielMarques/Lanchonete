@@ -21,8 +21,8 @@ public class Lanche {
     public void dados(Lanche lanche) {
         System.out.println("[ID]          | " + lanche.getId());
         System.out.println("[NOME]        | " + lanche.getNome());
-        System.out.println("[VALOR CUSTO] | " + lanche.getValor_custo());
-        System.out.println("[VALOR VENDA] | " + lanche.getValor_venda());
+        System.out.println("[VALOR CUSTO] | R$" + String.format("%.2f",lanche.getValor_custo()));
+        System.out.println("[VALOR VENDA] | R$" + String.format("%.2f", lanche.getValor_venda()));
         System.out.println("[DESCRICAO]   | " + lanche.getDescricao());
 
     }
